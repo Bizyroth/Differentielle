@@ -1,0 +1,33 @@
+===============================OBJECTIF==========================
+
+Le but de ce programme est de trouver la cle d'un chiffrement de Heys 
+(décrit à cette addresse: https://www.irif.fr/~roziere/crypto/tpdiff/heys.pdf)
+
+
+
+====================COMPILATION======================
+
+#make                    compile le programme
+#make clean              supprime les .o et autres trucs qui trainent 
+#make mrproper           clean puis supprime les EXE (sauf encrypt2linux que nous ne générons pas)
+
+
+===================EXECUTABLE========================
+
+
+#./table                           Affiche la table des distributions differentielles
+#./echantillon n                   Fait n echantillon et affiche chaque echantillon suivie de lui meme XOR 0x0B00 sur la  					   sortie standard
+                               
+#./key_finder fichier1 fichier2    Cherche la clé qui sert au chiffrement effectué par encrypt2linux. fichier1 est le 					   fichier contenant les couples obtenu à l'aide de ./echantillon et fichier2 contient 					   le fichier1 chiffre à l'aide de ./encrypt2linux
+
+#bash test.sh                      Script qui affiche la table, génère un échantillon, le chiffre, calcule la clé   					   pour ./encrypt2linux, fais le cafe et repasse les chemises
+
+#./dechiffre key fichier           Dechiffre le fichier à l'aide de la clé key (key en HEXADECIMAL) et affiche le 					   resultat sur la sortie standard
+
+==================NOTE POUR L'EXECUTION=============
+
+./key_finder étant en multi-threading, il est possible de changer le nombre de thread en modifiant la macro 
+NBR_THREAD au début de key_finder.c   
+
+Si le resultat n'est pas probant, il est possible d'augmenter le nombre de couple clair/chiffre lors du test de la cle
+en changeant la macro NBR_TEST dans le fichier multi_diff.h
